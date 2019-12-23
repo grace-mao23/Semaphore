@@ -68,13 +68,13 @@ int removes() {
     return -1;
   }
 
-  fd = open("telephone.txt", O_RDONLY, 0644);
+  fd = open("telephone.txt", O_RDONLY);
   if (fd < 0) {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  char buff[SIZE+1];
-  read(fd, buff, SIZE-1);
+  char buff[SIZE];
+  read(fd, buff, SIZE);
   buff[SIZE] = '\0';
   printf("The story so far:\n");
   printf("%s\n", buff);

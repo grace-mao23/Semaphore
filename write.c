@@ -23,18 +23,15 @@ int go_write() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  fd = open("telephone.txt", O_WRONLY | O_APPEND, 0644);
+  fd = open("telephone.txt", O_WRONLY | O_APPEND);
   char *last = shmat(shmd, 0, 0);
   printf("Last addition: %s\n\n", last);
   char next[SIZE];
   printf("Your addition: ");
   fgets(next, SIZE, stdin);
+  printf("\n");
   int i = 0;
-  for (; i < sizeof(next); i++) {
-    if (next[i] == '\n') {
-      next[i] = '\0';
-    }
-  }
+  
   write(fd, next, SIZE);
   close(fd);
   strcpy(last, next);

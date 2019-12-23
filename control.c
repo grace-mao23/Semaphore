@@ -73,9 +73,10 @@ int removes() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  char buff[SIZE];
+  char buff[SIZE+1];
   int test = 0;
-  test = read(fd, buff, SIZE);
+  test = read(fd, buff, SIZE-1);
+  buff[SIZE] = '\0';
   printf("The story so far: %d\n", test);
   printf("%s\n", buff);
   close(fd);

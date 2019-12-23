@@ -23,7 +23,7 @@ int go_write() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  fd = open("telephone.txt", O_RDWR, 0644);
+  fd = open("telephone.txt", O_RDWR | O_APPEND, 0644);
   char *last = shmat(shmd, 0, 0);
   printf("Last addition: %s\n\n", last);
   char next[SIZE];

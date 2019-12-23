@@ -32,7 +32,7 @@ int creates() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  printf("Semaphore created");
+  printf("Semaphore created\n");
   semctl(semd, 0, SETVAL, su);
 
   shmd = shmget(KEY, sizeof(char *), IPC_CREAT | 0644);
@@ -40,14 +40,14 @@ int creates() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  printf("Shared memory created");
+  printf("Shared memory created\n");
 
   fd = open("telephone.txt", O_CREAT | O_TRUNC | O_RDWR, 0644);
   if (fd < 0) {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  printf("File created");
+  printf("File created\n");
   close(fd);
 
   return 0;

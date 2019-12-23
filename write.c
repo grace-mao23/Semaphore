@@ -32,7 +32,7 @@ int go_write() {
   printf("\n");
   int i = 0;
 
-  printf("BLAHHHHH%d\n", write(fd, next, SIZE));
+  write(fd, next, strlen(next));
   close(fd);
   strcpy(last, next);
   shmdt(last);

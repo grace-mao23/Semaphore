@@ -74,8 +74,8 @@ int removes() {
     return -1;
   }
   char buff[SIZE];
-  printf("BLAHHHHH%d\n", read(fd, buff, SIZE));
-  buff[SIZE] = '\0';
+  buff[0] = '\0';
+  read(fd, buff, SIZE);
   printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);
@@ -91,14 +91,14 @@ int removes() {
 }
 
 int views() {
-  fd = open("telephone.txt", O_RDONLY, 0644);
+  fd = open("telephone.txt", O_RDONLY);
   if (fd < 0) {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  char buff[SIZE+1];
-  read(fd, buff, SIZE-1);
-  buff[SIZE] = '\0';
+  buff[0] = '\0';
+  char buff[SIZE];
+  read(fd, buff, SIZE);
   printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);

@@ -59,7 +59,7 @@ int removes() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  printf("Trying to get in");
+  printf("Trying to get in\n");
   semop(semd, &sb, 1);
 
   shmd = shmget(KEY, sizeof(char *), 0);

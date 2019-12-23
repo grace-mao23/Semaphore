@@ -12,23 +12,19 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-void go() {
+int go() {
   if (strcmp(flag, "-c") == 0) { //creating
-    create();
+    creates();
   } else if (strcmp(flag, "-v") == 0) {//viewing
-
+    views();
   } else if (strcmp(flag, "-r") == 0) {//removing
-    semd = semget(KEY, 1, 0);
-    if (semd < 0) {
-      printf("Error: %s\n", strerror(errno));
-      
-    }
+    removes();
   } else {
     printf("Invalid flag");
   }
 }
 
-void create() {
+int creates() {
   semd = semget(KEY, 1, IPC_CREAT | 0644);
   if (semd < 0) {
     printf("Error: %s\n", strerror(errno));
@@ -36,7 +32,7 @@ void create() {
   }
   printf("Semaphore created");
 
-  shmd = shmget(KEY, size_of(char *), IPC_CREAT | 0644);
+  shmd = shmget(KEY, sizeof(char *), IPC_CREAT | 0644);
   if (shmd < 0) {
     printf("Error: %s\n", strerror(errno));
     return -1;
@@ -50,4 +46,43 @@ void create() {
   }
   printf("File created");
   close(fd);
+}
+
+int removes() {
+  semd = semget(KEY, 1, 0);
+  if (semd < 0) {
+    printf("Error: %s\n", strerror(errno));
+    return -1;
+  }
+  printf("Trying to get in");
+  semop(semd, &sb, 1);
+
+  shmd = shmget(KEY, sizeof(char *), 0);
+  if (shmd < 0) {
+    printf("Error: %s\n", strerror(errno));
+    return -1;
+  }
+
+  fd = open("telephone.txt", O_RDONLY, 0644);
+  if (fd < 0) {
+    printf("Error: %s\n", strerror(errno));
+    return -1;
+  }
+  char buff[SIZE];
+  read(fd, buff, SIZE);
+  printf("The story so far:\n");
+  printf("%s\n", buff);
+  close(fd);
+
+  shmctl(shmd, IPC_RMID, 0);
+  printf("Shared memory removed\n");
+  semctl(semd, IPC_RMID, 0);
+  printf("Semaphore removed\n");
+  remove("telephone.txt");
+  printf("File removed\n");
+
+}
+
+int views() {
+  
 }

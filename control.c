@@ -76,7 +76,9 @@ int removes() {
   char buff[SIZE];
   buff[0] = '\0';
   read(fd, buff, SIZE);
-  *(strrchr(buff, '\n') + 1) = '\0';
+  if (strlen(buff) != 0) {
+    *(strrchr(buff, '\n') + 1) = '\0';
+  }
   printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);
@@ -100,7 +102,9 @@ int views() {
   char buff[SIZE];
   buff[0] = '\0';
   read(fd, buff, SIZE);
-  *(strrchr(buff, '\n') + 1) = '\0';
+  if (strlen(buff) != 0) {
+    *(strrchr(buff, '\n') + 1) = '\0';
+  }
   printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);

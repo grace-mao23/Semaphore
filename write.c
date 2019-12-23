@@ -31,8 +31,8 @@ int go_write() {
   fgets(next, SIZE, stdin);
   printf("\n");
   int i = 0;
-  
-  write(fd, next, SIZE);
+
+  printf("BLAHHHHH%d\n", write(fd, next, SIZE);
   close(fd);
   strcpy(last, next);
   shmdt(last);

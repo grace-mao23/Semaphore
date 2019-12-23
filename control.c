@@ -22,7 +22,7 @@ int go() {
   } else if (strcmp(flag, "-r") == 0) {//removing
     removes();
   } else {
-    printf("Invalid flag");
+    printf("Invalid flag\n");
   }
 }
 
@@ -74,10 +74,9 @@ int removes() {
     return -1;
   }
   char buff[SIZE+1];
-  int test = 0;
-  test = read(fd, buff, SIZE-1);
+  read(fd, buff, SIZE-1);
   buff[SIZE] = '\0';
-  printf("The story so far: %d\n", test);
+  printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);
 
@@ -97,8 +96,9 @@ int views() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  char buff[SIZE];
-  read(fd, buff, SIZE);
+  char buff[SIZE+1];
+  read(fd, buff, SIZE-1);
+  buff[SIZE] = '\0';
   printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);

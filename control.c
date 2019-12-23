@@ -96,8 +96,8 @@ int views() {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
-  buff[0] = '\0';
   char buff[SIZE];
+  buff[0] = '\0';
   read(fd, buff, SIZE);
   printf("The story so far:\n");
   printf("%s\n", buff);

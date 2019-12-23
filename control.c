@@ -2,9 +2,11 @@
 
 char flag[5];
 int semd, shmd, fd;
+union semun su;
 struct sembuf sb;
 
 int main(int argc, char *argv[]) {
+  su.val = 1;
   sb.sem_num = 0;
   sb.sem_op = -1;
   strcpy(flag, argv[1]);
@@ -31,6 +33,7 @@ int creates() {
     return -1;
   }
   printf("Semaphore created");
+  semctl(semd, 0, SETVAL, su);
 
   shmd = shmget(KEY, sizeof(char *), IPC_CREAT | 0644);
   if (shmd < 0) {
@@ -46,6 +49,8 @@ int creates() {
   }
   printf("File created");
   close(fd);
+
+  return 0;
 }
 
 int removes() {
@@ -81,8 +86,20 @@ int removes() {
   remove("telephone.txt");
   printf("File removed\n");
 
+  return 0;
 }
 
 int views() {
-  
+  fd = open("telephone.txt", O_RDONLY, 0644);
+  if (fd < 0) {
+    printf("Error: %s\n", strerror(errno));
+    return -1;
+  }
+  char buff[SIZE];
+  read(fd, buff, SIZE);
+  printf("The story so far:\n");
+  printf("%s\n", buff);
+  close(fd);
+
+  return 0;
 }

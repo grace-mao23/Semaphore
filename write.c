@@ -29,6 +29,7 @@ int go_write() {
   char next[SIZE];
   printf("Your addition: ");
   fgets(next, SIZE, stdin);
+  write(fd, next, SIZE);
   int i = 0;
   for (; i < sizeof(next); i++) {
     if (next[i] == '\n') {

@@ -29,16 +29,16 @@ int go_write() {
   char next[SIZE];
   printf("Your addition: ");
   fgets(next, SIZE, stdin);
-  write(fd, next, SIZE);
   int i = 0;
   for (; i < sizeof(next); i++) {
     if (next[i] == '\n') {
       next[i] = '\0';
     }
   }
+  write(fd, next, SIZE);
+  close(fd);
   strcpy(last, next);
   shmdt(last);
-  close(fd);
   sb.sem_op = 1;
   semop(semd, &sb, 1);
   return 0;

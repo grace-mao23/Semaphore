@@ -76,6 +76,7 @@ int removes() {
   char buff[SIZE];
   buff[0] = '\0';
   read(fd, buff, SIZE);
+  buff[SIZE] = '\0';
   printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);
@@ -99,6 +100,7 @@ int views() {
   char buff[SIZE];
   buff[0] = '\0';
   read(fd, buff, SIZE);
+  buff[SIZE] = '\0';
   printf("The story so far:\n");
   printf("%s\n", buff);
   close(fd);

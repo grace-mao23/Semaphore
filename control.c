@@ -74,8 +74,9 @@ int removes() {
     return -1;
   }
   char buff[SIZE];
-  read(fd, buff, SIZE);
-  printf("The story so far:\n");
+  int test = 0;
+  test = read(fd, buff, SIZE);
+  printf("The story so far: %d\n", test);
   printf("%s\n", buff);
   close(fd);
 

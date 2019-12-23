@@ -9,7 +9,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#define KEY 24601
+#define SHKEY 24601
+#define SEMKEY 24602
 #define SIZE 1000
 
 union semun {

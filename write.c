@@ -12,29 +12,28 @@ int main() {
 
 int go_write() {
   printf("Trying to get in\n");
-  semd = semget(KEY, 1, 0);
+  semd = semget(SEMKEY, 1, 0);
   if (semd < 0) {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
   semop(semd, &sb, 1);
-  shmd = shmget(KEY, sizeof(char *), 0);
+  shmd = shmget(SHKEY, sizeof(char *), 0);
   if (shmd < 0) {
     printf("Error: %s\n", strerror(errno));
     return -1;
   }
   fd = open("telephone.txt", O_WRONLY | O_APPEND);
-  char *last = shmat(shmd, 0, 0);
+  char *last = shmat(shmd, 0, 0); // get the last line from shared memory
   printf("Last addition: %s\n\n", last);
   char next[SIZE];
   printf("Your addition: ");
-  fgets(next, SIZE, stdin);
+  fgets(next, SIZE, stdin); // read in the next line
   printf("\n");
-  int i = 0;
 
-  write(fd, next, strlen(next));
+  write(fd, next, strlen(next)); // write that to the file
   close(fd);
-  strcpy(last, next);
+  strcpy(last, next); // the last addition becomes what was just added
   shmdt(last);
   sb.sem_op = 1;
   semop(semd, &sb, 1);

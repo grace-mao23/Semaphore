@@ -28,14 +28,14 @@ int go_write() {
   printf("Last addition: %s\n\n", last);
   char next[SIZE];
   printf("Your addition: ");
-  fgets(input, SIZE, stdin);
+  fgets(next, SIZE, stdin);
   int i = 0;
-  for (; i < sizeof(input); i++) {
-    if (input[i] == '\n') {
-      input[i] = '\0';
+  for (; i < sizeof(next); i++) {
+    if (next[i] == '\n') {
+      next[i] = '\0';
     }
   }
-  strcpy(last, input);
+  strcpy(last, next);
   shmdt(last);
   close(fd);
   sb.sem_op = 1;

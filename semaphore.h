@@ -23,3 +23,4 @@ int go();
 int creates();
 int removes();
 int views();
+int go_write();
